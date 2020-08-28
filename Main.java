@@ -1,10 +1,33 @@
 import java.util.concurrent.*;
 
+// Multiple customers are planning to eat at a
+// bakery. For each item, the pick a "latest"
+// ticket and wait for their turn to arrive. When
+// their turn comes, they place the order, clear
+// their ticket, goto eating. When they are hungry
+// again, the process repeats.
+
+// Each customer picks a maximum ticket, but since
+// this maximum can be the same for two people
+// more preference is given to customer with
+// smaller id. Also, if picking maximum is not
+// made atomic, it is possible for two customers
+// to end up ordering at the same time, so a
+// "choosing" status is present for each customer.
+
 class Main {
   static int[] ticket;
   static boolean[] choosing;
   static int N = 10;
+  // ticket: ticket no. of each customer
+  // choosing: tells if customer is chosing ticket
+  // N: no. of customers
 
+  // Each customer is here to eat a lot, and there
+  // is only on booth:
+  // 1. places an order (see lock)
+  // 2. eats baked item at table
+  // 3. ... done, but still hungry!
   static void customer(int i) {
     new Thread(() -> {
       try {
@@ -21,6 +44,14 @@ class Main {
     }).start();
   }
 
+  // To avoid crowding at booth, all customers
+  // follow this process:
+  // 1. pick latest ticket
+  // 2. for all other customers:
+  //   a. wait if they are choosing
+  //   b. wait if they have early ticket, or
+  //   c. wait if they came before you
+  // 3. goto the booth and place order
   static void lock(int i) {
     try {
     log(i+": choosing ticket");
@@ -41,10 +72,15 @@ class Main {
     catch(InterruptedException e) {}
   }
 
+  // When done placing the order:
+  // 1. throw away your ticket
   static void unlock(int i) {
     ticket[i] = 0;
   }
 
+  // 1. no customer has a ticket
+  // 2. no customer is choosing
+  // 3. all customers seated
   public static void main(String[] args) {
     ticket = new int[N];
     choosing = new boolean[N];
