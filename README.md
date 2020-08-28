@@ -15,9 +15,9 @@ follow this process:
 
 1. pick latest ticket
 2. for all other customers:
-  a. wait if they are choosing
-  b. wait if they have early ticket, or
-  c. wait if they came before you
+  1. wait if they are choosing
+  2. wait if they have early ticket, or
+  3. wait if they came before you
 3. goto the booth and place order
 
 When done placing the order:
