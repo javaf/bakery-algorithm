@@ -25,9 +25,9 @@ class Main {
 
   // Each customer is here to eat a lot, and there
   // is only on booth:
-  // 1. places an order (see lock)
-  // 2. eats baked item at table
-  // 3. ... done, but still hungry!
+  // 1. Places an order (see lock)
+  // 2. Eats baked item at table
+  // ... Done, but still hungry!
   static void customer(int i) {
     new Thread(() -> {
       try {
@@ -46,12 +46,12 @@ class Main {
 
   // To avoid crowding at booth, all customers
   // follow this process:
-  // 1. pick latest ticket
-  // 2. for all other customers:
-  //   a. wait if they are choosing
-  //   b. wait if they have early ticket, or
-  //   c. wait if they came before you
-  // 3. goto the booth and place order
+  // 1. Pick latest ticket
+  // 2. For all other customers:
+  //   a. Wait if they are choosing
+  //   b. Wait if they have early ticket, or
+  //   c. Wait if they came before you
+  // 3. Goto the booth and place order
   static void lock(int i) {
     try {
     log(i+": choosing ticket");
@@ -73,14 +73,14 @@ class Main {
   }
 
   // When done placing the order:
-  // 1. throw away your ticket
+  // 1. Throw away your ticket
   static void unlock(int i) {
     ticket[i] = 0;
   }
 
-  // 1. no customer has a ticket
-  // 2. no customer is choosing
-  // 3. all customers seated
+  // 1. No customer has a ticket
+  // 2. No customer is choosing
+  // 3. All customers seated
   public static void main(String[] args) {
     ticket = new int[N];
     choosing = new boolean[N];
