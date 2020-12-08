@@ -18,7 +18,7 @@ import java.util.concurrent.*;
 class Main {
   static int[] ticket;
   static boolean[] choosing;
-  static int N = 10;
+  static int N = 4;
   // ticket: ticket no. of each customer
   // choosing: tells if customer is chosing ticket
   // N: no. of customers
@@ -30,17 +30,14 @@ class Main {
   // ... Done, but still hungry!
   static void customer(int i) {
     new Thread(() -> {
-      try {
       while(true) {
         lock(i);
         log(i+": placing order");
         unlock(i);
         log(i+": eating");
-        Thread.sleep((long)(Math.random()*1000));
+        sleep(1000 * Math.random());
         log(i+": done");
       }
-      }
-      catch(InterruptedException e) {}
     }).start();
   }
 
@@ -53,7 +50,6 @@ class Main {
   //   c. Wait if they came before you
   // 3. Goto the booth and place order
   static void lock(int i) {
-    try {
     log(i+": choosing ticket");
     choosing[i] = true;
     ticket[i] = max(ticket, 0) + 1;
@@ -61,15 +57,13 @@ class Main {
     log(i+": got ticket="+ticket[i]);
     log(i+": waiting for turn");
     for(int p=0; p<N; p++) {
-      while(choosing[p]) Thread.sleep(10);
+      while(choosing[p]) sleep(10);
       while(
         (ticket[i] > 0) &&
         (ticket[p] < ticket[i] ||
         (ticket[p] == ticket[i] && p < i)))
-        Thread.sleep(10);
+        sleep(10);
     }
-    }
-    catch(InterruptedException e) {}
   }
 
   // When done placing the order:
@@ -82,17 +76,24 @@ class Main {
   // 2. No customer is choosing
   // 3. All customers seated
   public static void main(String[] args) {
+    log("Bakery shop with "+N+" customers ...");
     ticket = new int[N];
     choosing = new boolean[N];
     for(int i=0; i<N; i++)
       customer(i);
   }
-  static int max(int[] x, int vd) {
-    int a = vd;
+
+  static int max(int[] x, int a) {
     for(int i=0; i<x.length; i++)
       a = Math.max(a, x[i]);
     return a;
   }
+
+  static void sleep(double t) {
+    try { Thread.sleep((long)t); }
+    catch (InterruptedException e) {}
+  }
+
   static void log(String x) {
     System.out.println(x);
   }

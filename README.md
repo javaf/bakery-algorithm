@@ -1,6 +1,17 @@
-Multiple customers are planning to eat at a bakery. For each item, the pick a "latest" ticket and wait for their turn to arrive. When their turn comes, they place the order, clear their ticket, goto eating. When they are hungry again, the process repeats.
+Multiple customers are planning to eat at a
+bakery. For each item, the pick a **latest**
+ticket and wait for their turn to arrive. When
+their turn comes, they place the order, clear
+their ticket, goto eating. When they are hungry
+again, the process repeats.
 
-Each customer picks a maximum ticket, but since this maximum can be the same for two people more preference is given to customer with smaller id. Also, if picking maximum is not made atomic, it is possible for two customers to end up ordering at the same time, so a "choosing" status is present for each customer.
+Each customer picks a maximum ticket, but since
+this maximum can be the same for two people
+more preference is given to customer with
+smaller id. Also, if picking maximum is not
+made atomic, it is possible for two customers
+to end up ordering at the same time, so a
+**choosing** status is present for each customer.
 
 ```java
 Each customer is here to eat a lot, and there
@@ -24,6 +35,49 @@ follow this process:
 ```java
 When done placing the order:
 1. Throw away your ticket
+```
+
+```bash
+## OUTPUT
+2: choosing ticket
+0: choosing ticket
+3: choosing ticket
+1: choosing ticket
+3: got ticket=2
+1: got ticket=4
+0: got ticket=1
+3: waiting for turn
+0: waiting for turn
+0: placing order
+0: eating
+1: waiting for turn
+2: got ticket=3
+2: waiting for turn
+0: done
+0: choosing ticket
+0: got ticket=5
+0: waiting for turn
+3: placing order
+3: eating
+3: done
+3: choosing ticket
+3: got ticket=6
+3: waiting for turn
+2: placing order
+2: eating
+2: done
+2: choosing ticket
+2: got ticket=7
+2: waiting for turn
+1: placing order
+1: eating
+1: done
+1: choosing ticket
+1: got ticket=8
+1: waiting for turn
+0: placing order
+0: eating
+...
 ```
 
 See [Main.java] for code, and [repl.it] for output.
