@@ -13,9 +13,8 @@ made atomic, it is possible for two customers
 to end up ordering at the same time, so a
 **choosing** status is present for each customer.
 
-> **Course**: [Concurrent Data Structures], Monsoon 2020<br>
+> **Course**: [Concurrent Data Structures], Monsoon 2020\
 > **Taught by**: Prof. Govindarajulu Regeti
-<br>
 
 [Concurrent Data Structures]: https://github.com/iiithf/concurrent-data-structures
 
