@@ -13,6 +13,12 @@ made atomic, it is possible for two customers
 to end up ordering at the same time, so a
 **choosing** status is present for each customer.
 
+> **Course**: [Concurrent Data Structures], Monsoon 2020<br>
+> **Taught by**: Prof. Govindarajulu Regeti
+<br>
+
+[Concurrent Data Structures]: https://github.com/iiithf/concurrent-data-structures
+
 ```java
 Each customer is here to eat a lot, and there
 is only on booth:
