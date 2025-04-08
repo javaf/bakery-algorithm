@@ -94,3 +94,5 @@ See [Main.java] for code, and [repl.it] for output.
 ### references
 
 - [W6 L4 Bakery Algorithm :: Introduction to Operating Systems](https://www.youtube.com/watch?v=3pUScfud9Sg)
+
+![](https://ga-beacon.deno.dev/G-G1E8HNDZYY:v51jklKGTLmC3LAZ4rJbIQ/github.com/javaf/bakery-algorithm)
